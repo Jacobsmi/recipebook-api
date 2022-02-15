@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Response } from "express";
 import { body, matchedData, validationResult } from "express-validator";
 import { BasicUserData } from "../models/userModels";
 import UserService from "../services/userService";
@@ -12,7 +12,7 @@ router.post(
   body("lastname").isString(),
   body("email").isEmail(),
   body("password").isString(),
-  async (req, res) => {
+  async (req, res: Response) => {
     const err = validationResult(req);
 
     if (!err.isEmpty()) {
@@ -24,10 +24,8 @@ router.post(
       includeOptionals: true,
     });
     const newUser = reqData as BasicUserData;
-
-    await userService.addUser(newUser);
     
-    return res.status(200).send({ success: true });
+    return await userService.addUser(res, newUser);
   }
 );
 

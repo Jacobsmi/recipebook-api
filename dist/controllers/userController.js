@@ -58,10 +58,8 @@ router.post("/", express_validator_1.body("firstname").isString(), express_valid
                     includeOptionals: true,
                 });
                 newUser = reqData;
-                return [4 /*yield*/, userService.addUser(newUser)];
-            case 1:
-                _a.sent();
-                return [2 /*return*/, res.status(200).send({ success: true })];
+                return [4 /*yield*/, userService.addUser(res, newUser)];
+            case 1: return [2 /*return*/, _a.sent()];
         }
     });
 }); });
